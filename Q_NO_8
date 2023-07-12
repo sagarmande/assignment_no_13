@@ -1,0 +1,58 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.prev = None
+        self.next = None
+
+def deleteNodeFromPosition(head, position):
+    if head is None:
+        return head
+
+    # If position is 1, update the head and return
+    if position == 1:
+        head = head.next
+        if head is not None:
+            head.prev = None
+        return head
+
+    current = head
+    count = 1
+
+    # Traverse to the node at the given position
+    while current is not None and count < position:
+        current = current.next
+        count += 1
+
+    # If position is beyond the length of the list, return
+    if current is None:
+        return head
+
+    # Adjust the links of the previous and next nodes
+    current.prev.next = current.next
+    if current.next is not None:
+        current.next.prev = current.prev
+
+    return head
+
+# Function to print the doubly linked list
+def printDoublyLinkedList(head):
+    current = head
+    while current:
+        print(current.data, end=" ")
+        current = current.next
+    print()
+
+# Creating the doubly linked list
+head = Node(1)
+head.next = Node(3)
+head.next.prev = head
+head.next.next = Node(4)
+head.next.next.prev = head.next
+
+# Deleting a node from position 2
+new_head = deleteNodeFromPosition(head, 2)
+
+# Printing the modified doubly linked list
+printDoublyLinkedList(new_head)
+
+# Output: 1 4
