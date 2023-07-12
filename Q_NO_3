@@ -1,0 +1,54 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+def reverseKNodes(head, k):
+    if head is None or k == 1:
+        return head
+
+    dummy = Node(0)
+    dummy.next = head
+    prev = dummy
+
+    while True:
+        current = prev.next
+        tail = prev
+
+        # Check if there are enough nodes remaining to reverse
+        for _ in range(k):
+            tail = tail.next
+            if tail is None:
+                return dummy.next
+
+        # Reverse the k nodes
+        for _ in range(k - 1):
+            next_node = current.next
+            current.next = next_node.next
+            next_node.next = prev.next
+            prev.next = next_node
+
+        prev = current
+
+    return dummy.next
+
+# Creating the linked list
+head = Node(1)
+head.next = Node(2)
+head.next.next = Node(2)
+head.next.next.next = Node(4)
+head.next.next.next.next = Node(5)
+head.next.next.next.next.next = Node(6)
+head.next.next.next.next.next.next = Node(7)
+head.next.next.next.next.next.next.next = Node(8)
+
+# Reversing every 4 nodes in the linked list
+new_head = reverseKNodes(head, 4)
+
+# Printing the modified linked list
+current = new_head
+while current:
+    print(current.data, end=" ")
+    current = current.next
+
+# Output: 4 2 2 1 8 7 6 5
