@@ -1,0 +1,45 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.prev = None
+        self.next = None
+
+def reverseDoublyLinkedList(head):
+    if head is None or head.next is None:
+        return head
+
+    current = head
+    new_head = None
+
+    # Swap the prev and next pointers for each node
+    while current is not None:
+        current.prev, current.next = current.next, current.prev
+        new_head = current
+        current = current.prev
+
+    return new_head
+
+# Function to print the doubly linked list
+def printDoublyLinkedList(head):
+    current = head
+    while current:
+        print(current.data, end=" ")
+        current = current.next
+    print()
+
+# Creating the doubly linked list
+head = Node(1)
+head.next = Node(2)
+head.next.prev = head
+head.next.next = Node(3)
+head.next.next.prev = head.next
+head.next.next.next = Node(4)
+head.next.next.next.prev = head.next.next
+
+# Reversing the doubly linked list
+new_head = reverseDoublyLinkedList(head)
+
+# Printing the reversed doubly linked list
+printDoublyLinkedList(new_head)
+
+# Output: 4 3 2 1
