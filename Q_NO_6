@@ -1,0 +1,65 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+def mergeLinkedLists(a, b):
+    if a is None:
+        return b
+    if b is None:
+        return a
+
+    # Set the head of the merged list
+    if a.data <= b.data:
+        head = a
+        a = a.next
+    else:
+        head = b
+        b = b.next
+
+    # Merge the lists
+    current = head
+
+    while a is not None and b is not None:
+        if a.data <= b.data:
+            current.next = a
+            a = a.next
+        else:
+            current.next = b
+            b = b.next
+        current = current.next
+
+    # Append the remaining nodes of list a or b, if any
+    if a is not None:
+        current.next = a
+    if b is not None:
+        current.next = b
+
+    return head
+
+# Function to print the linked list
+def printLinkedList(head):
+    current = head
+    while current:
+        print(current.data, end=" ")
+        current = current.next
+    print()
+
+# Creating the first linked list
+a = Node(5)
+a.next = Node(10)
+a.next.next = Node(15)
+
+# Creating the second linked list
+b = Node(2)
+b.next = Node(3)
+b.next.next = Node(20)
+
+# Merging the linked lists
+merged_head = mergeLinkedLists(a, b)
+
+# Printing the merged linked list
+printLinkedList(merged_head)
+
+# Output: 2 3 5 10 15 20
+
