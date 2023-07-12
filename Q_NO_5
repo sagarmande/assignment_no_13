@@ -1,0 +1,52 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+def deleteLastOccurrence(head, key):
+    if head is None:
+        return head
+
+    # Find the last occurrence of the key
+    last_occurrence = None
+    current = head
+    prev = None
+
+    while current is not None:
+        if current.data == key:
+            last_occurrence = current
+        prev = current
+        current = current.next
+
+    # If the last occurrence is found, delete it
+    if last_occurrence is not None:
+        if last_occurrence == head:
+            head = head.next
+        else:
+            prev.next = last_occurrence.next
+        last_occurrence.next = None
+
+    return head
+
+# Function to print the linked list
+def printLinkedList(head):
+    current = head
+    while current:
+        print(current.data, end=" ")
+        current = current.next
+    print()
+
+# Creating the linked list
+head = Node(2)
+head.next = Node(5)
+head.next.next = Node(9)
+head.next.next.next = Node(5)
+head.next.next.next.next = Node(12)
+
+# Deleting the last occurrence of key = 5
+new_head = deleteLastOccurrence(head, 5)
+
+# Printing the modified linked list
+printLinkedList(new_head)
+
+# Output: 2 5 9 12
