@@ -1,0 +1,37 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+def removeDuplicates(head):
+    if head is None:
+        return head
+
+    current = head
+    while current.next is not None:
+        if current.data == current.next.data:
+            current.next = current.next.next
+        else:
+            current = current.next
+
+    return head
+
+# Creating the linked list
+head = Node(11)
+head.next = Node(11)
+head.next.next = Node(11)
+head.next.next.next = Node(21)
+head.next.next.next.next = Node(43)
+head.next.next.next.next.next = Node(43)
+head.next.next.next.next.next.next = Node(60)
+
+# Removing duplicates from the linked list
+new_head = removeDuplicates(head)
+
+# Printing the modified linked list
+current = new_head
+while current:
+    print(current.data, end=" ")
+    current = current.next
+
+# Output: 11 21 43 60
